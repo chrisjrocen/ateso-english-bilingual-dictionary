@@ -42,7 +42,6 @@ function ate_eng_register_post_type() {
 		'rewrite'             => array( 'slug' => 'ateso-words' ),
 		'supports'            => array( 
 			'title',
-			'editor',
 			'custom-fields',
 			'thumbnail',
 		),

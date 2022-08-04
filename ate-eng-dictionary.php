@@ -21,7 +21,6 @@ if ( 'DICTIONARY_CUSTOM_URL' ) {
 
 require_once( plugin_dir_path( __FILE__ ) . '/core/post-types/ateso.php' );
 require_once( plugin_dir_path( __FILE__ ) . '/functions.php' );
-require_once( plugin_dir_path( __FILE__ ) . '/core/taxonomies/genres.php' );
+require_once( plugin_dir_path( __FILE__ ) . '/core/taxonomies/parts.php' );
 require_once( plugin_dir_path( __FILE__ ) . '/core/post-types/ateso-archive.php' );
 require_once( plugin_dir_path( __FILE__ ) . '/core/post-types/ateso-words-shortcode.php' );
-

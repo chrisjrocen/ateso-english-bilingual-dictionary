@@ -26,9 +26,9 @@ function render_ateso_words_page($atts)
 			$the_query->the_post();
 
 			loop_through_ateso_words();
-	
+
 		}
-		
+
 		echo '</div>';
 
 	} else {
@@ -45,28 +45,14 @@ function render_ateso_words_page($atts)
  * @return void
  */
 function loop_through_ateso_words() {
-
-	echo '<article class="card-container"><h2>' . esc_attr(get_the_title()) . '</h2>';
-
-	if (has_post_thumbnail()) {
-
-		echo '<a href="">';
-		
-		the_post_thumbnail('medium', array(
-			'class' => 'book-card',
-			'alt'   => get_the_title()
-		));
-
-			//get_the_post_thumbnail(null, 'post-thumbnail', '');
-
-			echo '</a>';
-}
-
-	the_excerpt();
-
-	echo '<a href="' . get_permalink() .'">';
 	
-	echo '<button class="chrx-button">More</button></a>';
-	
-	echo '</article>';
+	echo '<h1>' . get_the_title() . '</h1>';
+
+	if( get_field('meaning') ): ?>
+	<h2><?php the_field('meaning'); ?></h2>
+<?php endif; 
+
+	if( get_field('example') ): ?>
+	<h2><?php the_field('example'); ?></h2>
+<?php endif;
 }
