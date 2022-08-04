@@ -3,11 +3,11 @@
  * Plugin Name: Ateso-English Dictionary
  * Plugin URI:  https://ocenchris.com
  * Description: Ateso-English Bilingual Dictionary
- * Author:      chrx
+ * Author:      Ocen Chris
  * Author URI:  https://ocenchris.com
  * Version:     1.0.0
  * License:     1.0.0
- * text-domain: ate-eng
+ * text-domain: ateeng
  *
  * @package atesoenglish.
  */
@@ -22,4 +22,6 @@ if ( 'DICTIONARY_CUSTOM_URL' ) {
 require_once( plugin_dir_path( __FILE__ ) . '/core/post-types/ateso.php' );
 require_once( plugin_dir_path( __FILE__ ) . '/functions.php' );
 require_once( plugin_dir_path( __FILE__ ) . '/core/taxonomies/genres.php' );
+require_once( plugin_dir_path( __FILE__ ) . '/core/post-types/ateso-archive.php' );
+require_once( plugin_dir_path( __FILE__ ) . '/core/post-types/ateso-words-shortcode.php' );
 
