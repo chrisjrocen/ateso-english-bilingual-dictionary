@@ -22,17 +22,20 @@ function render_ateso_words_page( $atts ) {
 		echo '<div class="main-container">';
 
 		while ( $the_query->have_posts() ) {
+			
 			$the_query->the_post();
 
 			// Loop_through_ateso_words
-			echo '<article class="card-container"><h3 class="word-title">' . get_the_title() . '</h3>';
+			echo '<article class="card-container"><p class="word-title">' . get_the_title() . '</p>';
 
 			if ( get_field( 'meaning' ) ) {
+
 				echo '<p class="word-meaning">' . the_field( 'meaning' ) . '</p>';
 			}
 
 			if ( get_field( 'example' ) ) {
-				echo '<p class="word-example">' . the_field( 'example' ) . '</p></article>';
+				
+				echo '<p class="word-example">Example' . the_field( 'example' ) . '</p></article>';
 			}
 
 			// End Loop

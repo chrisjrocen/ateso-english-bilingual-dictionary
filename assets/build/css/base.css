@@ -1,15 +1,13 @@
 .main-container {
-  display: grid;
-  grid-template-columns: 30% 30% 30%;
-  padding: 16px;
-  justify-content: space-evenly;
+  display: block;
 }
 
 .card-container {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   border: #000;
   background-color: #f1f1f1;
-  padding: 16px;
+  padding: 10px;
+  margin: 10px;
 }
 
 .word-title {

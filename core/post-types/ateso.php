@@ -39,6 +39,7 @@ function ate_eng_register_post_type() {
 		'hierarchical'        => false,
 		'menu_icon'           => 'dashicons-location-alt',
 		'capability_type'     => 'post',
+		'taxonomies'          => array( 'category' ),
 		'rewrite'             => array( 'slug' => 'ateso-words' ),
 		'supports'            => array( 
 			'title',
