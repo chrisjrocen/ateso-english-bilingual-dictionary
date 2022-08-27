@@ -50,4 +50,3 @@ function ate_eng_register_post_type() {
 	);
 	register_post_type( 'ateso-words', $args );
 }
-add_action( 'init', 'ate_eng_register_post_type' );
