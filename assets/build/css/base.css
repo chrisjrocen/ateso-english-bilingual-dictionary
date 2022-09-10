@@ -1,11 +1,11 @@
 .grid-container {
-  display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
-  padding: 10px;
+  display: grid !important;
+  grid-template-columns: 25% 25% 25% 25% !important;
+  padding: 10px !important;
 }
 
 .grid-item {
-  border: #1d528d;
+  border: #1d528d !important;
   background-color: #f1f1f1;
   padding: 10px 10px 0px 10px;
   margin: 10px 10px 0px 10px;

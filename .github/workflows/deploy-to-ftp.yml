@@ -18,7 +18,7 @@ jobs:
         username: ${{ secrets.ftp_username }}
         password: ${{ secrets.ftp_password }}
         port: ${{ secrets.ftp_port }}
-        server-dir: wp-content/plugins/ateso-english-bilingual-dictionary/
+        server-dir: public_html/wp-content/plugins/ateso-english-bilingual-dictionary/
         exclude: |
           **/.git*
           **/.git*/**
