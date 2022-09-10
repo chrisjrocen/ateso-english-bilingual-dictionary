@@ -1,16 +1,28 @@
 .grid-container {
-  display: grid !important;
-  grid-template-columns: 25% 25% 25% 25% !important;
-  padding: 10px !important;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  padding: 10px;
+}
+@media only screen and (max-width: 768px) {
+  .grid-container {
+    /* For mobile phones: */
+    grid-template-columns: auto;
+  }
 }
 
 .grid-item {
-  border: #1d528d !important;
+  border: #1d528d;
   background-color: #f1f1f1;
   padding: 10px 10px 0px 10px;
   margin: 10px 10px 0px 10px;
   border-top-left-radius: 5%;
   border-top-right-radius: 5%;
+}
+@media only screen and (max-width: 768px) {
+  .grid-item {
+    /* For mobile phones: */
+    width: 100%;
+  }
 }
 
 .word-title {

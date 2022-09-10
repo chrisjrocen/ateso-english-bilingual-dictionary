@@ -2,6 +2,15 @@
 	display: grid;
 	grid-template-columns: 25% 25% 25% 25%;
 	padding: 10px;
+
+
+	@media only screen and (max-width: 768px) {
+		/* For mobile phones: */
+		
+		//   width: 100%;
+		  grid-template-columns: auto;
+	  }
+
   }
 
 .grid-item {
@@ -12,6 +21,15 @@
 	margin: 10px 10px 0px 10px;
 	border-top-left-radius: 5%;
 	border-top-right-radius: 5%;
+	
+
+	@media only screen and (max-width: 768px) {
+		/* For mobile phones: */
+		
+		  width: 100%;
+		
+	  }
+
   }
 
 .word-title {
