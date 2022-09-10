@@ -24,10 +24,10 @@ require_once( plugin_dir_path( __FILE__ ) . '/core/post-types/ateso.php' );
 require_once( plugin_dir_path( __FILE__ ) . '/functions.php' );
 //require_once( plugin_dir_path( __FILE__ ) . '/core/taxonomies/parts.php' );
 require_once( plugin_dir_path( __FILE__ ) . '/core/post-types/ateso-archive.php' );
-require_once( plugin_dir_path( __FILE__ ) . '/core/post-types/ateso-words-shortcode.php' );
+// require_once( plugin_dir_path( __FILE__ ) . '/core/post-types/ateso-words-shortcode.php' );
 
 //Hooks and Filters
-add_action( 'wp_enqueue_scripts', 'chrx_enqueue_scripts', 10 );
+//add_action( 'wp_enqueue_scripts', 'chrx_enqueue_scripts', 10 );
 add_action( 'init', 'ate_eng_register_post_type' );
 
 //Shortcodes
