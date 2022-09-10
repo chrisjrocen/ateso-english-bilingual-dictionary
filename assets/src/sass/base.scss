@@ -1,13 +1,37 @@
 .grid-container {
 	display: grid;
-	grid-template-columns: 25% 25% 25% 25%;
 	padding: 10px;
 
 
-	@media only screen and (max-width: 768px) {
-		/* For mobile phones: */
-		  grid-template-columns: auto;
-	  }
+	// @media only screen and (max-width: 768px) {
+	// 	/* For mobile phones: */
+	// 	  grid-template-columns: auto;
+	//   }
+
+	  /* Extra small devices (phones, 600px and down) */
+	@media only screen and (max-width: 600px) {
+		grid-template-columns: auto;
+	}
+
+	/* Small devices (portrait tablets and large phones, 600px and up) */
+	@media only screen and (min-width: 600px) {
+		grid-template-columns: auto;
+	}
+
+	/* Medium devices (landscape tablets, 768px and up) */
+	@media only screen and (min-width: 768px) {
+		grid-template-columns: auto;
+	}
+
+	/* Large devices (laptops/desktops, 992px and up) */
+	@media only screen and (min-width: 992px) {
+		grid-template-columns: 25% 25% 25% 25%;
+	}
+
+	/* Extra large devices (large laptops and desktops, 1200px and up) */
+	@media only screen and (min-width: 1200px) {
+		grid-template-columns: 25% 25% 25% 25%;
+	}
 
   }
 
@@ -21,12 +45,12 @@
 	border-top-right-radius: 5%;
 	
 
-	@media only screen and (max-width: 768px) {
-		/* For mobile phones: */
+	// @media only screen and (max-width: 768px) {
+	// 	/* For mobile phones: */
 		
-		  width: 100%;
+	// 	  width: 100%;
 		
-	  }
+	//   }
 
   }
 

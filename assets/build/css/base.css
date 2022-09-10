@@ -1,12 +1,35 @@
 .grid-container {
   display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
   padding: 10px;
+  /* Extra small devices (phones, 600px and down) */
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+  /* Medium devices (landscape tablets, 768px and up) */
+  /* Large devices (laptops/desktops, 992px and up) */
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 600px) {
   .grid-container {
-    /* For mobile phones: */
     grid-template-columns: auto;
+  }
+}
+@media only screen and (min-width: 600px) {
+  .grid-container {
+    grid-template-columns: auto;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .grid-container {
+    grid-template-columns: auto;
+  }
+}
+@media only screen and (min-width: 992px) {
+  .grid-container {
+    grid-template-columns: 25% 25% 25% 25%;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .grid-container {
+    grid-template-columns: 25% 25% 25% 25%;
   }
 }
 
@@ -17,12 +40,6 @@
   margin: 10px 10px 0px 10px;
   border-top-left-radius: 5%;
   border-top-right-radius: 5%;
-}
-@media only screen and (max-width: 768px) {
-  .grid-item {
-    /* For mobile phones: */
-    width: 100%;
-  }
 }
 
 .word-title {
