@@ -1,13 +1,16 @@
-.main-container {
-  display: block;
+.grid-container {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  padding: 10px;
 }
 
-.card-container {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  border: #000;
+.grid-item {
+  border: #1d528d;
   background-color: #f1f1f1;
-  padding: 10px;
-  margin: 10px;
+  padding: 10px 10px 0px 10px;
+  margin: 10px 10px 0px 10px;
+  border-top-left-radius: 5%;
+  border-top-right-radius: 5%;
 }
 
 .word-title {
@@ -17,11 +20,26 @@
 
 .word-meaning {
   color: black;
+  height: 25px;
 }
 
 .word-example {
-  color: aqua;
+  color: #1d528d;
   font-style: italic;
+}
+
+.more-link {
+  background-color: #1d528d;
+  text-align: right;
+  display: block;
+  padding-right: 10%;
+  border-bottom-left-radius: 5%;
+  border-bottom-right-radius: 5%;
+  margin: 0px 10px;
+}
+.more-link a:link {
+  color: white;
+  text-decoration: none;
 }
 
 /*# sourceMappingURL=base.css.map */

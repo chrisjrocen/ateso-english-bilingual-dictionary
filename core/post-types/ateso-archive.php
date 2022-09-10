@@ -6,6 +6,7 @@
  *
  * @return void
  */
+
 function render_ateso_words_page( $atts ) {
 	$args = array(
 		'post_type' => 'ateso-words',
@@ -19,24 +20,28 @@ function render_ateso_words_page( $atts ) {
 
 	if ( $the_query->have_posts() ) {
 
-		echo '<div class="main-container">';
+		echo '<div class="grid-container">';
 
 		while ( $the_query->have_posts() ) {
 			
 			$the_query->the_post();
 
 			// Loop_through_ateso_words
-			echo '<article class="card-container"><p class="word-title">' . get_the_title() . '</p>';
+			echo '<div><div class="grid-item"><a href="' . get_permalink() . '"><h3 class="word-title">' . get_the_title() . '</h3></a>';
 
 			if ( get_field( 'meaning' ) ) {
 
 				echo '<p class="word-meaning">' . the_field( 'meaning' ) . '</p>';
 			}
 
-			if ( get_field( 'example' ) ) {
+			// if ( get_field( 'example' ) ) {
+
+			// 	echo '<p class="example-title">Example: ';
 				
-				echo '<p class="word-example">Example' . the_field( 'example' ) . '</p></article>';
-			}
+			// 	echo '<span class="word-example">' . the_field( 'example' ) . '</span></p>';
+			// }
+
+			echo '</div><div class="more-link"><a href="' . get_permalink() . '">More</a></div></div>'; 
 
 			// End Loop
 
