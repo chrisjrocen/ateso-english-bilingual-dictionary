@@ -1,0 +1,33 @@
+on:
+  push:
+    branches:
+      - main
+name: 🚀 Deploy plugin on push
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v2
+
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@4.3.0
+      with:
+        server: ${{ secrets.ftp_server }}
+        username: ${{ secrets.ftp_username }}
+        password: ${{ secrets.ftp_password }}
+        # port: ${{ secrets.ftp_port }}
+        server-dir: wp-content/plugins/ateso-english-bilingual-dictionary/
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/node_modules/**
+          **/assets/build/fonts/**
+          **/assets/images/icons/**
+          **/assets/images/logo/**
+          **/notes.txt/**
+          **/.editorconfig/**
+          **/gulpfile.js/**
+          **/package-lock.json/**
+          **/package.json/**
