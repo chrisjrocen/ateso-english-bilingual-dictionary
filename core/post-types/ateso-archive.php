@@ -27,7 +27,7 @@ function render_ateso_words_page( $atts ) {
 			$the_query->the_post();
 
 			// Loop_through_ateso_words
-			echo '<div><div class="grid-item"><a href="' . get_permalink() . '"><h3 class="word-title">' . get_the_title() . '</h3></a>';
+			echo '<div class="grid-item"><a href="' . get_permalink() . '"><h3 class="word-title">' . get_the_title() . '</h3></a>';
 
 			if ( get_field( 'meaning' ) ) {
 
@@ -41,7 +41,7 @@ function render_ateso_words_page( $atts ) {
 			// 	echo '<span class="word-example">' . the_field( 'example' ) . '</span></p>';
 			// }
 
-			echo '</div><div class="more-link"><a href="' . get_permalink() . '">More</a></div></div>'; 
+			echo '<div class="more-link"><a href="' . get_permalink() . '">More</a></div></div>'; 
 
 			// End Loop
 
