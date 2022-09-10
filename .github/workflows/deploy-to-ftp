@@ -23,11 +23,5 @@ jobs:
           **/.git*
           **/.git*/**
           **/node_modules/**
-          **/assets/build/fonts/**
-          **/assets/images/icons/**
-          **/assets/images/logo/**
-          **/notes.txt/**
-          **/.editorconfig/**
-          **/gulpfile.js/**
-          **/package-lock.json/**
-          **/package.json/**
+          **/assets/src/sass/**
+          **/.png/**
