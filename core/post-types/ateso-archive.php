@@ -51,7 +51,7 @@ function render_ateso_words_page( $atts ) {
 
 	}
 	else {
-		printf('No books found');
+		printf('No words found');
 	}
 	/* Restore original Post Data */
 	wp_reset_postdata();
