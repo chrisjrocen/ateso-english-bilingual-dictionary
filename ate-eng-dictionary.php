@@ -22,7 +22,7 @@ if ( 'DICTIONARY_CUSTOM_URL' ) {
 //includes
 require_once( plugin_dir_path( __FILE__ ) . '/core/post-types/ateso.php' );
 require_once( plugin_dir_path( __FILE__ ) . '/functions.php' );
-require_once( plugin_dir_path( __FILE__ ) . '/core/post-types/ateso-archive.php' );
+//require_once( plugin_dir_path( __FILE__ ) . '/ateso-archive.php' );
 
 //Hooks and Filters
 
