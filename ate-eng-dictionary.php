@@ -9,25 +9,42 @@
  * License:     1.0.0
  * text-domain: ateeng
  *
- * @package atesoenglish.
+ * @package Ateso_Dictionary.
  */
 
 // If this file is called directly, abort!!!
 defined( 'ABSPATH' ) || die( 'No Access!' );
 
-if ( 'DICTIONARY_CUSTOM_URL' ) {
-	define( 'DICTIONARY_CUSTOM_URL', plugin_dir_url( __FILE__ ) );
+// Require once the Composer Autoload.
+if ( file_exists( __DIR__ . '/lib/autoload.php' ) ) {
+	require_once __DIR__ . '/lib/autoload.php';
 }
 
-//includes
-require_once( plugin_dir_path( __FILE__ ) . '/core/post-types/ateso.php' );
-require_once( plugin_dir_path( __FILE__ ) . '/functions.php' );
-//require_once( plugin_dir_path( __FILE__ ) . '/ateso-archive.php' );
+/**
+ *  Runs during plugin activation.
+ *
+ * @return void
+ */
+function activate_ateso_dictionary() {
+	Ateso_Dictionary\Base\Activate::activate();
+}
 
-//Hooks and Filters
+register_activation_hook( __FILE__, 'activate_ateso_dictionary' );
 
-add_action( 'init', 'ate_eng_register_post_type' );
+/**
+ *  Runs during plugin deactivation.
+ *
+ * @return void
+ */
+function deactivate_ateso_dictionary() {
+	Ateso_Dictionary\Base\Deactivate::deactivate();
+}
 
-//Shortcodes
+register_deactivation_hook( __FILE__, 'deactivate_ateso_dictionary' );
 
-add_shortcode( 'ateso-words', 'render_ateso_words_page' );
+/**
+ * Initialize all the core classes of the plugin.
+ */
+if ( class_exists( 'Ateso_Dictionary\\Init' ) ) {
+	Ateso_Dictionary\Init::register_services();
+}
