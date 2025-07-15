@@ -2,58 +2,78 @@ document.addEventListener('DOMContentLoaded', function () {
 	const container = document.querySelector('.ateso-words-archive');
 	const loading = document.querySelector('.ateso-words-loading');
 	const searchInput = document.querySelector('.ateso-words-search');
+
 	let isLoading = false;
+	let offset = 20;
+	let allLoaded = false;
 
-	// Live search
-	searchInput?.addEventListener('input', function (e) {
-		const term = e.target.value.toLowerCase();
-		const cards = document.querySelectorAll('.ateso-word-card');
+	const createCard = (word) => {
+		const card = document.createElement('div');
+		card.className = 'ateso-word-card';
+		card.dataset.title = word.title.toLowerCase();
+		card.dataset.meaning = (word.meaning || '').toLowerCase();
 
-		cards.forEach(card => {
-			const title = card.dataset.title.toLowerCase();
-			card.style.display = title.includes(term) ? 'block' : 'none';
-		});
-	});
+		card.innerHTML = `
+			<a href="${word.link}">
+				<h3>${word.title}</h3>
+				<p>${word.meaning || ''}</p>
+			</a>
+		`;
+		return card;
+	};
 
-	// Infinite scroll
 	const loadMoreWords = async () => {
-		if (isLoading) return;
+		if (isLoading || allLoaded) return;
 		isLoading = true;
 		loading.style.display = 'block';
 
-		const offset = parseInt(container.dataset.offset) || 0;
-
 		try {
-			const res = await fetch(`/wp-json/ateso/v1/words?offset=${offset}`);
-			const words = await res.json();
+			const response = await fetch(`/wp-json/ateso/v1/words?offset=${offset}`);
+			if (!response.ok) throw new Error('Failed to load');
 
-			if (words.length) {
-				words.forEach(word => {
-					const div = document.createElement('div');
-					div.className = 'ateso-word-card';
-					div.dataset.title = word.title;
-					div.innerHTML = `<h3>${word.title}</h3>`;
-					container.appendChild(div);
-				});
-				container.dataset.offset = offset + words.length;
-			} else {
-				window.removeEventListener('scroll', scrollHandler);
+			const words = await response.json();
+
+			if (!words.length) {
+				allLoaded = true;
 				loading.textContent = 'No more words.';
+				return;
 			}
-		} catch (e) {
-			console.error('Error loading words', e);
+
+			words.forEach(word => {
+				const card = createCard(word);
+				container.appendChild(card);
+			});
+
+			offset += words.length;
+		} catch (err) {
+			console.error(err);
+			loading.textContent = 'Failed to load more words.';
 		} finally {
 			isLoading = false;
 			loading.style.display = 'none';
 		}
 	};
 
-	const scrollHandler = () => {
-		const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-		if (scrollTop + clientHeight >= scrollHeight - 100) {
+	const handleScroll = () => {
+		const nearBottom =
+			window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
+
+		if (nearBottom) {
 			loadMoreWords();
 		}
 	};
 
-	window.addEventListener('scroll', scrollHandler);
+	window.addEventListener('scroll', handleScroll);
+
+	// Live search (title + meaning)
+	searchInput?.addEventListener('input', function (e) {
+		const term = e.target.value.toLowerCase();
+		const cards = document.querySelectorAll('.ateso-word-card');
+
+		cards.forEach(card => {
+			const title = card.dataset.title;
+			const meaning = card.dataset.meaning || '';
+			card.style.display = (title.includes(term) || meaning.includes(term)) ? 'block' : 'none';
+		});
+	});
 });

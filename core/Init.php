@@ -22,6 +22,7 @@ final class Init {
 			Base\Activate::class,
 			Blocks\AtesoWords::class,
 			PostType\AtesoWords::class,
+			Templates\SingleAtesoWord::class,
 		);
 	}
 

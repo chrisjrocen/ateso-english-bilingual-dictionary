@@ -41,7 +41,9 @@ class AtesoWords extends BaseController {
 	}
 
 	/**
-	 * Get words.
+	 * Extract words from the database.
+	 *
+	 * @param Array $request Request body.
 	 */
 	public function get_words( $request ) {
 		$offset = absint( $request->get_param( 'offset' ) );
@@ -63,7 +65,9 @@ class AtesoWords extends BaseController {
 			while ( $query->have_posts() ) {
 				$query->the_post();
 				$results[] = array(
-					'title' => get_the_title(),
+					'title'   => get_the_title(),
+					'link'    => get_permalink(),
+					'meaning' => get_field( 'meaning' ),
 				);
 			}
 			wp_reset_postdata();
@@ -89,7 +93,7 @@ class AtesoWords extends BaseController {
 			$args  = array(
 				'post_type'      => 'ateso-words',
 				'post_status'    => 'publish',
-				'posts_per_page' => 20,
+				'posts_per_page' => -1,
 				'orderby'        => 'rand',
 			);
 			$query = new \WP_Query( $args );
@@ -98,10 +102,14 @@ class AtesoWords extends BaseController {
 					$query->the_post();
 					echo sprintf(
 						'<div class="ateso-word-card" data-title="%s">
-                            <h3>%s</h3>
-                            <p>%s</p>
-                        </div>',
+                            <a href="%s">
+                                <h3>%s</h3>
+                                <p>%s</p>
+                            </a>
+                        </div>
+                        ',
 						esc_attr( get_the_title() ),
+						esc_attr( get_permalink() ),
 						esc_html( get_the_title() ),
 						wp_kses_post( get_field( 'meaning' ) )
 					);
@@ -137,5 +145,14 @@ class AtesoWords extends BaseController {
 		);
 
 		wp_enqueue_script( 'ateso-words-frontend' );
+
+		wp_register_style(
+			'ateso-words-base-css',
+			$this->plugin_url . 'assets/build/css/base.css',
+			array(),
+			'1.0'
+		);
+
+		wp_enqueue_style( 'ateso-words-base-css' );
 	}
 }
