@@ -20,7 +20,7 @@ final class Init {
 	public static function get_services() {
 		return array(
 			Base\Activate::class,
-            Blocks\AtesoWords::class,
+			Blocks\AtesoWords::class,
 			PostType\AtesoWords::class,
 		);
 	}

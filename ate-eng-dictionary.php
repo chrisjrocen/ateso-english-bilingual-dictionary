@@ -27,20 +27,20 @@ if ( file_exists( __DIR__ . '/lib/autoload.php' ) ) {
  *
  * @return void
  */
-function activate_mrksuperblocks_jobs_addon_plugin() {
+function activate_ateso_eng_plugin() {
 	ATESO_ENG\Base\Activate::activate();
 }
-register_activation_hook( __FILE__, 'activate_mrksuperblocks_jobs_addon_plugin' );
+register_activation_hook( __FILE__, 'activate_ateso_eng_plugin' );
 
 /**
  * The code that runs during plugin deactivation.
  *
  * @return void
  */
-function deactivate_ates_eng_plugin() {
+function deactivate_ateso_eng_plugin() {
 	ATESO_ENG\Base\Deactivate::deactivate();
 }
-register_deactivation_hook( __FILE__, 'deactivate_ates_eng_plugin' );
+register_deactivation_hook( __FILE__, 'deactivate_ateso_eng_plugin' );
 
 /**
  * Initialize all the core classes of the plugin.
@@ -48,23 +48,3 @@ register_deactivation_hook( __FILE__, 'deactivate_ates_eng_plugin' );
 if ( class_exists( 'ATESO_ENG\\Init' ) ) {
 	ATESO_ENG\Init::register_services();
 }
-
-
-
-
-// if ( 'DICTIONARY_CUSTOM_URL' ) {
-// 	define( 'DICTIONARY_CUSTOM_URL', plugin_dir_url( __FILE__ ) );
-// }
-
-// //includes
-// require_once( plugin_dir_path( __FILE__ ) . '/core/post-types/ateso.php' );
-// require_once( plugin_dir_path( __FILE__ ) . '/functions.php' );
-// //require_once( plugin_dir_path( __FILE__ ) . '/ateso-archive.php' );
-
-// //Hooks and Filters
-
-// add_action( 'init', 'ate_eng_register_post_type' );
-
-// //Shortcodes
-
-// add_shortcode( 'ateso-words', 'render_ateso_words_page' );
