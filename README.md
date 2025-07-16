@@ -1,5 +1,10 @@
 # ateso-english-bilingual-dictionary
 
+## Changelog
+
+### 3.0.0 
+
+Re-factored the plugin to use OOP
 
 # TODO 
 
