@@ -17,6 +17,7 @@ class SingleAtesoWord {
 	 */
 	public function register() {
 		add_action( 'template_redirect', array( $this, 'render' ) );
+		add_action( '', array( $this, 'register_scripts' ) );
 	}
 
 	/**
@@ -30,7 +31,7 @@ class SingleAtesoWord {
 		get_header();
 
 		echo '<div class="ateso-words-single-wrapper">';
-		echo '<div class="ateso-words-archive">'; // Reuse archive class for layout.
+		// echo '<div class="ateso-words-archive">'; // Reuse archive class for layout.
 
 		while ( have_posts() ) {
 			the_post();
@@ -42,22 +43,17 @@ class SingleAtesoWord {
 
 			echo sprintf(
 				'<div class="ateso-word-card" data-title="%s" data-meaning="%s">
-					<a href="%s">
 						<h3>%s</h3>
 						<p>%s</p>
-					</a>
 				</div>',
 				esc_attr( $title ),
 				esc_attr( $meaning ),
-				esc_url( $link ),
 				esc_html( $title ),
 				wp_kses_post( $meaning )
 			);
-
-			$this->render_share_buttons( $url, $encoded_title );
 		}
-
-		echo '</div>';
+		// echo '</div>';
+		$this->render_share_buttons( $url, $encoded_title );
 		$this->render_related_words( get_the_ID() );
 		echo '</div>';
 
@@ -78,7 +74,7 @@ class SingleAtesoWord {
 
 		echo '<div class="job-share-buttons">';
 		echo '<span>' . esc_html__( 'Share this word:', 'ateso-eng' ) . '</span>';
-		echo '<button class="copy-link-button" data-url="' . esc_url( get_permalink() ) . '">' . esc_html__( 'Copy Link', 'ateso-eng' ) . '</button>';
+		//TODO echo '<button class="copy-link-button" data-url="' . $post_url . '">' . esc_html__( 'Copy Link', 'ateso-eng' ) . '</button>';
 		echo '<a href="' . esc_url( $facebook_url ) . '" target="_blank" rel="noopener noreferrer">Facebook</a>';
 		echo '<a href="' . esc_url( $twitter_url ) . '" target="_blank" rel="noopener noreferrer">X</a>';
 		echo '<a href="' . esc_url( $whatsapp_url ) . '" target="_blank" rel="noopener noreferrer">WhatsApp</a>';
@@ -132,5 +128,20 @@ class SingleAtesoWord {
 		}
 
 		echo '</div>';
+	}
+
+	/**
+	 * Register scripts.
+	 */
+	public function register_scripts() {
+		wp_register_script(
+			'ateso-words-frontend',
+			$this->plugin_url . 'assets/js/script.js',
+			array(),
+			'1.0',
+			true
+		);
+
+		wp_enqueue_script( 'ateso-words-frontend' );
 	}
 }
