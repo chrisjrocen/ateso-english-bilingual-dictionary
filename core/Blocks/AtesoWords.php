@@ -47,6 +47,7 @@ class AtesoWords extends BaseController {
 	 */
 	public function get_words( $request ) {
 		$offset = absint( $request->get_param( 'offset' ) );
+		$search = sanitize_text_field( $request->get_param( 'search' ) );
 		$limit  = 20;
 
 		$args = array(
@@ -57,6 +58,21 @@ class AtesoWords extends BaseController {
 			'order'          => 'DESC',
 			'offset'         => $offset,
 		);
+
+		// Add search functionality if search term is provided.
+		if ( ! empty( $search ) && strlen( $search ) >= 2 ) {
+			$args['meta_query'] = array(
+				'relation' => 'OR',
+				array(
+					'key'     => 'meaning',
+					'value'   => $search,
+					'compare' => 'LIKE',
+				),
+			);
+
+			// Search in post title.
+			$args['s'] = $search;
+		}
 
 		$query   = new \WP_Query( $args );
 		$results = array();
@@ -73,7 +89,14 @@ class AtesoWords extends BaseController {
 			wp_reset_postdata();
 		}
 
-		return rest_ensure_response( $results );
+		// Add search term to response for validation.
+		$response_data = array(
+			'words'      => $results,
+			'search'     => $search,
+			'total_found' => $query->found_posts,
+		);
+
+		return rest_ensure_response( $response_data );
 	}
 
 	/**
@@ -93,15 +116,16 @@ class AtesoWords extends BaseController {
 			$args  = array(
 				'post_type'      => 'ateso-words',
 				'post_status'    => 'publish',
-				'posts_per_page' => -1,
-				'orderby'        => 'rand',
+				'posts_per_page' => 20,
+				'orderby'        => 'date',
+				'order'          => 'DESC',
 			);
 			$query = new \WP_Query( $args );
 			if ( $query->have_posts() ) :
 				while ( $query->have_posts() ) :
 					$query->the_post();
 					echo sprintf(
-						'<div class="ateso-word-card" data-title="%s">
+						'<div class="ateso-word-card" data-title="%s" data-meaning="%s">
                             <a href="%s">
                                 <h3>%s</h3>
                                 <p>%s</p>
@@ -109,6 +133,7 @@ class AtesoWords extends BaseController {
                         </div>
                         ',
 						esc_attr( get_the_title() ),
+						esc_attr( get_field( 'meaning' ) ),
 						esc_attr( get_permalink() ),
 						esc_html( get_the_title() ),
 						wp_kses_post( get_field( 'meaning' ) )
@@ -119,6 +144,11 @@ class AtesoWords extends BaseController {
 			?>
 		</div>
 		<div class="ateso-words-loading">Loading...</div>
+		<div class="ateso-load-more-container">
+			<button class="ateso-load-more-btn" type="button">
+				<?php echo esc_html__( 'Load More', 'ateso-eng' ); ?>
+			</button>
+		</div>
 		<?php
 		return ob_get_clean();
 	}
