@@ -8,7 +8,7 @@ namespace ATESO_ENG\Traits;
 trait PostType {
 
 	/**
-	 * Register New Post Type, Taxonomy & its ACF Fields.
+	 * Register New Post Type and Taxonomy.
 	 * if a post type name is given.
 	 *
 	 * @return void

@@ -1,12 +1,13 @@
 <?php
 /**
  * Register New AtesoWords Post Type.
- * Add Fields via ACF Pro Plugin.
+ * Uses native WordPress custom post meta (no ACF dependency).
  */
 
 namespace ATESO_ENG\PostType;
 
 use ATESO_ENG\Traits\PostType;
+use ATESO_ENG\MetaFields\MetaBoxManager;
 
 /**
  * Class AtesoWords
@@ -42,21 +43,21 @@ class AtesoWords {
 	 *
 	 * @var array
 	 */
-	protected $taxonomy_names_plural = array( 'Parts of Speech' );
+	protected $taxonomy_names_plural = array( 'Parts of Speech', 'Dialects' );
 
 	/**
 	 * Taxonomy Names Singular.
 	 *
 	 * @var array
 	 */
-	protected $taxonomy_names_singular = array( 'Part of Speech' );
+	protected $taxonomy_names_singular = array( 'Part of Speech', 'Dialect' );
 
 	/**
 	 * Taxonomy Slugs.
 	 *
 	 * @var array
 	 */
-	protected $taxonomy_slugs = array( 'part_of_speech' );
+	protected $taxonomy_slugs = array( 'part_of_speech', 'dialect' );
 
 	/**
 	 * Taxonomy Slug for AtesoWords.
@@ -77,7 +78,7 @@ class AtesoWords {
 	 *
 	 * @var bool
 	 */
-	protected $enable_gutenberg_editor = false;
+	protected $enable_gutenberg_editor = true;
 
 	/**
 	 * Menu Position.
@@ -98,7 +99,7 @@ class AtesoWords {
 	 *
 	 * @var bool
 	 */
-	protected $enable_hierarchical = false;
+	protected $enable_hierarchical = true;
 
 	/**
 	 * Enable Detail Pages.
@@ -122,9 +123,13 @@ class AtesoWords {
 	protected $enable_taxonomy = true;
 
 	/**
-	 * Constructor to register the AtesoWords post type and taxonomy.
+	 * Register the post type and initialize meta boxes.
 	 */
-	public function __construct() {
+	public function register() {
 		$this->register_post_type();
+
+		// Initialize meta box manager
+		$meta_box_manager = new MetaBoxManager();
+		$meta_box_manager->register();
 	}
 }
