@@ -5,17 +5,17 @@
  * Description: Ateso-English Bilingual Dictionary
  * Author:      Ocen Chris
  * Author URI:  https://ocenchris.com
- * Version:     1.0.0
- * License:     1.0.0
- * text-domain: ateeng
+ * Version:     3.1.0
+ * License:     GPLv2 or later
+ * Text Domain: ateso-eng-dictionary
  *
- * @package atesoenglish.
+ * @package ATESO_ENG
  */
 
-// If this file is called directly, abort!!!
+// If this file is called directly, abort.
 defined( 'ABSPATH' ) || die( 'No Access!' );
 
-define( 'ATESO_ENG_VERSION', '0.3.0' );
+define( 'ATESO_ENG_VERSION', '3.1.0' );
 
 // Require once the Composer Autoload.
 if ( file_exists( __DIR__ . '/lib/autoload.php' ) ) {

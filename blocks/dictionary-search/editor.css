@@ -1,0 +1,28 @@
+.ateso-dict-editor-preview {
+	padding: 24px;
+	text-align: center;
+	background: #f8f9fa;
+	border: 2px dashed #ddd;
+	border-radius: 8px;
+}
+
+.ateso-dict-editor-preview .ateso-dict-editor-icon {
+	margin-bottom: 8px;
+}
+
+.ateso-dict-editor-preview .ateso-dict-editor-icon .dashicons {
+	font-size: 48px;
+	width: 48px;
+	height: 48px;
+	color: #0073aa;
+}
+
+.ateso-dict-editor-preview h3 {
+	margin: 8px 0 4px;
+	font-size: 18px;
+}
+
+.ateso-dict-editor-preview p {
+	color: #666;
+	font-size: 14px;
+}

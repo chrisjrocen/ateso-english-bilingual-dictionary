@@ -18,6 +18,7 @@ class Activate extends BaseController {
 	 * @return void
 	 */
 	public static function activate() {
+		\ATESO_ENG\Database\Schema::create_tables();
 		flush_rewrite_rules();
 	}
 }

@@ -64,7 +64,7 @@ class AtesoWords extends BaseController {
 			$args['meta_query'] = array(
 				'relation' => 'OR',
 				array(
-					'key'     => 'meaning',
+					'key'     => 'primary_definition',
 					'value'   => $search,
 					'compare' => 'LIKE',
 				),
@@ -83,7 +83,7 @@ class AtesoWords extends BaseController {
 				$results[] = array(
 					'title'   => get_the_title(),
 					'link'    => get_permalink(),
-					'meaning' => get_field( 'meaning' ),
+					'meaning' => get_post_meta( get_the_ID(), 'primary_definition', true ),
 				);
 			}
 			wp_reset_postdata();
@@ -124,6 +124,7 @@ class AtesoWords extends BaseController {
 			if ( $query->have_posts() ) :
 				while ( $query->have_posts() ) :
 					$query->the_post();
+					$primary_definition = get_post_meta( get_the_ID(), 'primary_definition', true );
 					echo sprintf(
 						'<div class="ateso-word-card" data-title="%s" data-meaning="%s">
                             <a href="%s">
@@ -133,10 +134,10 @@ class AtesoWords extends BaseController {
                         </div>
                         ',
 						esc_attr( get_the_title() ),
-						esc_attr( get_field( 'meaning' ) ),
+						esc_attr( $primary_definition ),
 						esc_attr( get_permalink() ),
 						esc_html( get_the_title() ),
-						wp_kses_post( get_field( 'meaning' ) )
+						wp_kses_post( $primary_definition )
 					);
 				endwhile;
 				wp_reset_postdata();

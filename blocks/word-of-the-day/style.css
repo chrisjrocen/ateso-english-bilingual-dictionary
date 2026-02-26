@@ -1,0 +1,351 @@
+/* ==========================================================================
+   Word of the Day — Card & Modal Styles
+   Uses shared CSS variables from dictionary-frontend.css with fallbacks.
+   ========================================================================== */
+
+/* --- Card --- */
+.ateso-wotd-card {
+	max-width: 480px;
+	padding: 24px 28px;
+	background: var(--dict-bg, #fff);
+	border: 1px solid var(--dict-border-light, #eee);
+	border-left: 4px solid var(--dict-primary, #0073aa);
+	border-radius: var(--dict-radius, 8px);
+	box-shadow: var(--dict-shadow, 0 2px 8px rgba(0, 0, 0, 0.08));
+	font-family: var(--dict-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+	transition: box-shadow 0.2s;
+}
+
+.ateso-wotd-card:hover {
+	box-shadow: var(--dict-shadow-hover, 0 4px 16px rgba(0, 0, 0, 0.12));
+}
+
+.ateso-wotd-label {
+	display: inline-block;
+	margin: 0 0 8px;
+	padding: 2px 10px;
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: var(--dict-primary, #0073aa);
+	background: #e8f4f8;
+	border-radius: 3px;
+}
+
+.ateso-wotd-word {
+	margin: 0 0 6px;
+	font-size: 32px;
+	font-weight: 700;
+	font-family: var(--dict-font-serif, Georgia, "Times New Roman", serif);
+	line-height: 1.15;
+}
+
+.ateso-wotd-word a {
+	color: var(--dict-text, #1a1a1a);
+	text-decoration: none;
+	transition: color 0.15s;
+}
+
+.ateso-wotd-word a:hover,
+.ateso-wotd-word a:focus {
+	color: var(--dict-primary, #0073aa);
+}
+
+.ateso-wotd-word sup {
+	font-size: 14px;
+	color: var(--dict-text-light, #888);
+	vertical-align: super;
+}
+
+.ateso-wotd-pos {
+	display: inline-block;
+	padding: 2px 8px;
+	margin-bottom: 8px;
+	font-size: 13px;
+	font-style: italic;
+	color: var(--dict-primary, #0073aa);
+	background: #e8f4f8;
+	border-radius: 3px;
+}
+
+.ateso-wotd-def {
+	margin: 0 0 6px;
+	font-size: 16px;
+	line-height: 1.5;
+	color: var(--dict-text-secondary, #555);
+}
+
+.ateso-wotd-plural {
+	margin: 0;
+	font-size: 13px;
+	color: var(--dict-text-light, #888);
+	font-style: italic;
+}
+
+.ateso-wotd-more {
+	display: inline-block;
+	margin-top: 12px;
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--dict-primary, #0073aa);
+	text-decoration: none;
+	cursor: pointer;
+	background: none;
+	border: none;
+	padding: 0;
+}
+
+.ateso-wotd-more:hover,
+.ateso-wotd-more:focus {
+	text-decoration: underline;
+}
+
+/* --- Empty State --- */
+.ateso-wotd-empty {
+	padding: 24px;
+	text-align: center;
+	color: var(--dict-text-light, #888);
+	font-size: 14px;
+	border: 2px dashed var(--dict-border, #e5e5e5);
+	border-radius: var(--dict-radius, 8px);
+}
+
+/* ==========================================================================
+   Modal
+   ========================================================================== */
+
+.ateso-wotd-modal-overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 100000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0, 0, 0, 0.55);
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.2s, visibility 0.2s;
+}
+
+.ateso-wotd-modal-overlay.is-open {
+	opacity: 1;
+	visibility: visible;
+}
+
+.ateso-wotd-modal {
+	position: relative;
+	width: 90%;
+	max-width: 600px;
+	max-height: 85vh;
+	overflow-y: auto;
+	background: var(--dict-bg, #fff);
+	border-radius: var(--dict-radius, 8px);
+	box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
+	padding: 32px;
+	transform: translateY(12px);
+	transition: transform 0.2s;
+}
+
+.ateso-wotd-modal-overlay.is-open .ateso-wotd-modal {
+	transform: translateY(0);
+}
+
+.ateso-wotd-modal-close {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	width: 32px;
+	height: 32px;
+	border: none;
+	border-radius: 50%;
+	background: var(--dict-bg-muted, #f0f0f0);
+	color: var(--dict-text-secondary, #555);
+	font-size: 18px;
+	line-height: 1;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background 0.15s;
+}
+
+.ateso-wotd-modal-close:hover,
+.ateso-wotd-modal-close:focus {
+	background: var(--dict-border, #e5e5e5);
+}
+
+.ateso-wotd-modal-word {
+	margin: 0 0 4px;
+	font-size: 36px;
+	font-weight: 700;
+	font-family: var(--dict-font-serif, Georgia, "Times New Roman", serif);
+	color: var(--dict-text, #1a1a1a);
+}
+
+.ateso-wotd-modal-word sup {
+	font-size: 14px;
+	color: var(--dict-text-light, #888);
+}
+
+.ateso-wotd-modal-pos {
+	display: inline-block;
+	padding: 2px 8px;
+	margin-bottom: 16px;
+	font-size: 14px;
+	font-style: italic;
+	color: var(--dict-primary, #0073aa);
+	background: #e8f4f8;
+	border-radius: 3px;
+}
+
+/* Definitions */
+.ateso-wotd-modal-defs {
+	margin: 0 0 16px;
+	padding: 0;
+	list-style: none;
+	counter-reset: def;
+}
+
+.ateso-wotd-modal-defs li {
+	position: relative;
+	padding-left: 30px;
+	margin-bottom: 10px;
+	font-size: 16px;
+	line-height: 1.5;
+	color: var(--dict-text, #1a1a1a);
+}
+
+.ateso-wotd-modal-defs li::before {
+	content: counter(def);
+	counter-increment: def;
+	position: absolute;
+	left: 0;
+	top: 1px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 22px;
+	height: 22px;
+	font-size: 12px;
+	font-weight: 700;
+	color: var(--dict-primary, #0073aa);
+	background: #e8f4f8;
+	border-radius: 50%;
+}
+
+/* Examples */
+.ateso-wotd-modal-examples {
+	background: var(--dict-bg-light, #f8f9fa);
+	border-left: 3px solid var(--dict-primary, #0073aa);
+	padding: 14px 18px;
+	margin-bottom: 16px;
+	border-radius: 0 var(--dict-radius-sm, 4px) var(--dict-radius-sm, 4px) 0;
+}
+
+.ateso-wotd-modal-examples h4 {
+	margin: 0 0 8px;
+	font-size: 13px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: var(--dict-text-light, #888);
+}
+
+.ateso-wotd-modal-ex-item {
+	margin-bottom: 10px;
+}
+
+.ateso-wotd-modal-ex-item:last-child {
+	margin-bottom: 0;
+}
+
+.ateso-wotd-modal-ex-ateso {
+	margin: 0;
+	font-style: italic;
+	font-size: 14px;
+	color: var(--dict-text, #1a1a1a);
+}
+
+.ateso-wotd-modal-ex-english {
+	margin: 2px 0 0;
+	font-size: 13px;
+	color: var(--dict-text-secondary, #555);
+	padding-left: 14px;
+}
+
+/* Cross-references */
+.ateso-wotd-modal-refs {
+	font-size: 14px;
+	color: var(--dict-text-secondary, #555);
+	margin-bottom: 16px;
+}
+
+.ateso-wotd-modal-refs a {
+	color: var(--dict-primary, #0073aa);
+	text-decoration: none;
+}
+
+.ateso-wotd-modal-refs a:hover {
+	text-decoration: underline;
+}
+
+/* View full entry link */
+.ateso-wotd-modal-link {
+	display: inline-block;
+	margin-top: 8px;
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--dict-primary, #0073aa);
+	text-decoration: none;
+}
+
+.ateso-wotd-modal-link:hover {
+	text-decoration: underline;
+}
+
+/* Loading state inside modal */
+.ateso-wotd-modal-loading {
+	text-align: center;
+	padding: 40px 0;
+	color: var(--dict-text-light, #888);
+}
+
+.ateso-wotd-modal-loading::after {
+	content: '';
+	display: block;
+	width: 28px;
+	height: 28px;
+	margin: 12px auto 0;
+	border: 3px solid var(--dict-border, #e5e5e5);
+	border-top-color: var(--dict-primary, #0073aa);
+	border-radius: 50%;
+	animation: ateso-wotd-spin 0.6s linear infinite;
+}
+
+@keyframes ateso-wotd-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 480px) {
+	.ateso-wotd-card {
+		padding: 18px 20px;
+	}
+
+	.ateso-wotd-word {
+		font-size: 26px;
+	}
+
+	.ateso-wotd-modal {
+		padding: 24px 20px;
+	}
+
+	.ateso-wotd-modal-word {
+		font-size: 28px;
+	}
+}

@@ -19,10 +19,23 @@ final class Init {
 	 */
 	public static function get_services() {
 		return array(
-			Base\Activate::class,
-			Blocks\AtesoWords::class,
-			PostType\AtesoWords::class,
-			Templates\SingleAtesoWord::class,
+			// Database (version checking, table upgrades).
+			Database\Schema::class,
+
+			// API.
+			Api\RestController::class,
+
+			// Admin.
+			Admin\AdminMenu::class,
+			Admin\EditForm::class,
+			Admin\ImportPage::class,
+
+			// Blocks.
+			Blocks\DictionarySearch::class,
+			Blocks\WordOfTheDay::class,
+
+			// Frontend.
+			Frontend\SingleWord::class,
 		);
 	}
 
