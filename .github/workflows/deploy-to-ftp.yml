@@ -25,3 +25,9 @@ jobs:
           **/node_modules/**
           **/assets/src/sass/**
           **/.png/**
+          **/*.map/**
+          **/.txt**
+          **/.json**
+          **/.doc/**
+          **/.py/**
+          **/.xml/**
