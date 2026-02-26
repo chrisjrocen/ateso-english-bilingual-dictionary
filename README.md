@@ -2,6 +2,9 @@
 
 ## Changelog
 
+### 4.0.0
+
+- New redesign
 
 ### 3.0.1
 

@@ -268,6 +268,30 @@ class TermRepository {
 	}
 
 	/**
+	 * Get a single random term that has at least one definition.
+	 * Used for the "Word of the Day" feature.
+	 *
+	 * @return object|null Term object with definition_preview, or null if no terms exist.
+	 */
+	public function get_random_term_with_definition() {
+		global $wpdb;
+		$table     = Schema::terms_table();
+		$def_table = Schema::definitions_table();
+
+		return $wpdb->get_row(
+			"SELECT t.*,
+				(SELECT d.definition_text FROM {$def_table} d
+				 WHERE d.term_id = t.id ORDER BY d.sort_order ASC LIMIT 1) AS definition_preview
+			FROM {$table} t
+			INNER JOIN {$def_table} d2 ON d2.term_id = t.id
+			WHERE t.parent_id IS NULL
+			GROUP BY t.id
+			ORDER BY RAND()
+			LIMIT 1"
+		);
+	}
+
+	/**
 	 * Flush dictionary cache.
 	 */
 	private function flush_cache() {

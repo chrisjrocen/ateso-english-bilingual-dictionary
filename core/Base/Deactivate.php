@@ -19,5 +19,6 @@ class Deactivate extends BaseController {
 	 */
 	public static function deactivate() {
 		flush_rewrite_rules();
+		delete_transient( 'ateso_dict_wotd' );
 	}
 }

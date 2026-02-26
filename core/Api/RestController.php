@@ -72,6 +72,29 @@ class RestController extends BaseController {
 				'permission_callback' => '__return_true',
 			)
 		);
+
+		// Word of the Day endpoints.
+		register_rest_route(
+			self::NAMESPACE,
+			'/word-of-the-day',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'get_word_of_the_day' ),
+				'permission_callback' => '__return_true',
+			)
+		);
+
+		register_rest_route(
+			self::NAMESPACE,
+			'/word-of-the-day/refresh',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'refresh_word_of_the_day' ),
+				'permission_callback' => function () {
+					return current_user_can( 'manage_options' );
+				},
+			)
+		);
 	}
 
 	/**
@@ -187,5 +210,99 @@ class RestController extends BaseController {
 		$counts    = $term_repo->get_letter_counts();
 
 		return new \WP_REST_Response( $counts, 200 );
+	}
+
+	/**
+	 * Get the current Word of the Day.
+	 */
+	public function get_word_of_the_day() {
+		$data = $this->resolve_wotd();
+
+		if ( ! $data ) {
+			return new \WP_Error( 'no_words', 'No dictionary entries with definitions found.', array( 'status' => 404 ) );
+		}
+
+		return new \WP_REST_Response( $data, 200 );
+	}
+
+	/**
+	 * Refresh the Word of the Day (admin only).
+	 */
+	public function refresh_word_of_the_day() {
+		delete_transient( 'ateso_dict_wotd' );
+
+		$data = $this->resolve_wotd();
+
+		if ( ! $data ) {
+			return new \WP_Error( 'no_words', 'No dictionary entries with definitions found.', array( 'status' => 404 ) );
+		}
+
+		return new \WP_REST_Response( $data, 200 );
+	}
+
+	/**
+	 * Resolve the Word of the Day: read from transient or pick a new one.
+	 *
+	 * @return array|null WOTD data array or null if no terms exist.
+	 */
+	private function resolve_wotd() {
+		$term_repo = new TermRepository();
+		$term_id   = get_transient( 'ateso_dict_wotd' );
+
+		if ( $term_id ) {
+			$term = $term_repo->find_by_id( $term_id );
+			// Term may have been deleted — fall through if so.
+			if ( $term ) {
+				return $this->format_wotd( $term, $term_repo );
+			}
+			delete_transient( 'ateso_dict_wotd' );
+		}
+
+		// Pick a new random term with a definition.
+		$term = $term_repo->get_random_term_with_definition();
+
+		if ( ! $term ) {
+			return null;
+		}
+
+		set_transient( 'ateso_dict_wotd', $term->id, DAY_IN_SECONDS );
+
+		return $this->format_wotd( $term, $term_repo );
+	}
+
+	/**
+	 * Format a term object into the WOTD response shape.
+	 *
+	 * @param object         $term      Term row object.
+	 * @param TermRepository $term_repo Repository instance.
+	 * @return array Formatted WOTD data.
+	 */
+	private function format_wotd( $term, $term_repo ) {
+		global $wpdb;
+		$def_table = \ATESO_ENG\Database\Schema::definitions_table();
+
+		// Fetch first definition if not already available.
+		$definition_preview = $term->definition_preview ?? null;
+		if ( ! $definition_preview ) {
+			$definition_preview = $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT definition_text FROM {$def_table} WHERE term_id = %d ORDER BY sort_order ASC LIMIT 1",
+					$term->id
+				)
+			);
+		}
+
+		return array(
+			'id'                 => (int) $term->id,
+			'word'               => $term->word,
+			'slug'               => $term->slug,
+			'homonym_number'     => $term->homonym_number ? (int) $term->homonym_number : null,
+			'pos'                => $term->pos,
+			'pos_detail'         => $term->pos_detail,
+			'plural'             => $term->plural,
+			'gender'             => $term->gender,
+			'definition_preview' => $definition_preview ?? '',
+			'url'                => home_url( '/dictionary/' . $term->slug . '/' ),
+		);
 	}
 }

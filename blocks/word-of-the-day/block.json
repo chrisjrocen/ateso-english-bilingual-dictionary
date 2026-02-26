@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ateso-dict/word-of-the-day",
+	"version": "1.0.0",
+	"title": "Word of the Day",
+	"category": "widgets",
+	"icon": "star-filled",
+	"description": "Displays a daily random Ateso word with its definition.",
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"showPlural": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"textdomain": "ateso-eng-dictionary",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css"
+}

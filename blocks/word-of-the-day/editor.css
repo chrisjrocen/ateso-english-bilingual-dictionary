@@ -1,0 +1,9 @@
+/* Word of the Day — Editor-only styles */
+
+.wp-block-ateso-dict-word-of-the-day {
+	max-width: 480px;
+}
+
+.wp-block-ateso-dict-word-of-the-day .ateso-wotd-card {
+	pointer-events: none;
+}

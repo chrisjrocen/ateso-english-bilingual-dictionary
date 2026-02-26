@@ -32,6 +32,7 @@ final class Init {
 
 			// Blocks.
 			Blocks\DictionarySearch::class,
+			Blocks\WordOfTheDay::class,
 
 			// Frontend.
 			Frontend\SingleWord::class,
